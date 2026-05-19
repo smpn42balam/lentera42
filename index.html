@@ -318,7 +318,7 @@
         }
 
         const isNew = !formTestimoni.id;
-        const payload = { ...formTestimoni, id: isNew ? 't' + Date.now() : formTestimoni.id };
+        const payload = { ...formTestimoni, id: 't' + Date.now() };
 
         if (isNew) {
           setTestimonials([payload, ...testimonials]);
@@ -555,15 +555,15 @@
                 <Crown size={18} />
               </div>
               <div>
-                <span className="text-base font-extrabold text-blue-400 block tracking-tight leading-none">LENTERA</span>
-                <span className="text-[8px] font-bold text-slate-500 tracking-[0.2em] uppercase">42</span>
+                <span className="text-base font-extrabold text-blue-400 block tracking-tight leading-none">LENTERA42</span>
+                <span className="text-[8px] font-bold text-slate-500 tracking-[0.05em] uppercase block mt-0.5">SMPN 42 B. Lampung</span>
               </div>
             </div>
 
             <div className="space-y-1 flex-1">
               <NavItem icon={<LayoutDashboard size={14}/>} label="Dashboard" active={view === 'home'} onClick={() => navigateTo('home')} />
               <NavItem icon={<BookOpen size={14}/>} label="Mata Pelajaran" active={view === 'subjects' || view === 'subject-detail'} onClick={() => navigateTo('subjects', '#/subjects')} />
-              <NavItem icon={<Trophy size={14}/>} label="Leaderboard" active={view === 'leaderboard'} onClick={() => navigateTo('leaderboard', '#/leaderboard')} />
+              <NavItem icon={<Trophy size={14}/>} label="Kontributor" active={view === 'leaderboard'} onClick={() => navigateTo('leaderboard', '#/leaderboard')} />
               <NavItem icon={<MessageSquare size={14}/>} label="Testimoni" active={view === 'testimoni'} onClick={() => navigateTo('testimoni', '#/testimoni')} />
             </div>
 
@@ -587,106 +587,123 @@
             <div className="space-y-8 flex-1">
               {/* VIEW: HOME */}
               {view === 'home' && (
-                <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in duration-500">
+                <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in duration-500">
                   <header className="relative py-12 px-6 sm:py-16 sm:px-12 bg-slate-900 rounded-[2.5rem] text-white overflow-visible shadow-2xl border-b-4 border-blue-500/50">
-                     <div className="relative z-30 space-y-6">
-                        <span className="inline-block bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-full text-[8px] font-extrabold uppercase tracking-[0.2em]">Platform Digital</span>
-                        <h1 className="text-4xl md:text-5xl font-serif leading-[1.1]">Transformasi Belajar <br/><span className="text-blue-400 italic font-medium">Tanpa Batas.</span></h1>
-                        <p className="text-slate-400 max-w-md text-sm font-normal leading-relaxed">Akses pembelajaran digital inovatif dengan materi pilihan dan kurikulum terbaru hanya di LENTERA42 (Layanan Interaktif Materi dan Pembelajaran SMPN 42 Bandar Lampung)</p>
-                        
-                        {/* --- FITUR: SEARCH BAR INDAH --- */}
-                        <div className="relative max-w-xl z-40">
-                          <div className="relative flex items-center bg-white/10 hover:bg-white/15 focus-within:bg-white text-slate-200 focus-within:text-slate-800 rounded-2xl border border-white/10 focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-400/20 shadow-lg transition-all">
-                            <div className="pl-4 text-slate-400">
-                              <Search size={20} />
-                            </div>
-                            <input 
-                              type="text" 
-                              placeholder="Cari materi, kontributor, mapel, atau kelas..."
-                              value={searchQuery}
-                              onChange={(e) => {
-                                setSearchQuery(e.target.value);
-                                setShowSearchResults(true);
-                              }}
-                              onFocus={() => setShowSearchResults(true)}
-                              className="w-full pl-3 pr-4 py-4 bg-transparent text-sm font-semibold outline-none placeholder:text-slate-400 focus-within:placeholder:text-slate-400"
-                            />
-                            {searchQuery && (
-                              <button 
-                                onClick={() => {
-                                  setSearchQuery('');
-                                  setShowSearchResults(false);
+                     {/* Flex container layout untuk teks di kiri dan gambar di kanan */}
+                     <div className="relative z-30 flex flex-col lg:flex-row items-center justify-between gap-8">
+                       <div className="space-y-6 lg:w-7/12 text-left">
+                          <span className="inline-block bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-full text-[8px] font-extrabold uppercase tracking-[0.2em]">Platform Digital</span>
+                          <h1 className="text-4xl md:text-5xl font-serif leading-[1.1]">Transformasi Belajar <br/><span className="text-blue-400 italic font-medium">Tanpa Batas.</span></h1>
+                          <p className="text-slate-400 max-w-md text-sm font-normal leading-relaxed">Akses pembelajaran digital inovatif dengan materi pilihan dan kurikulum terbaru hanya di LENTERA42 (Layanan Interaktif Materi dan Pembelajaran SMPN 42 Bandar Lampung)</p>
+                          
+                          {/* --- FITUR: SEARCH BAR INDAH --- */}
+                          <div className="relative max-w-xl z-40">
+                            <div className="relative flex items-center bg-white/10 hover:bg-white/15 focus-within:bg-white text-slate-200 focus-within:text-slate-800 rounded-2xl border border-white/10 focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-400/20 shadow-lg transition-all">
+                              <div className="pl-4 text-slate-400">
+                                <Search size={20} />
+                              </div>
+                              <input 
+                                type="text" 
+                                placeholder="Cari materi, kontributor, mapel, atau kelas..."
+                                value={searchQuery}
+                                onChange={(e) => {
+                                  setSearchQuery(e.target.value);
+                                  setShowSearchResults(true);
                                 }}
-                                className="pr-4 text-slate-400 hover:text-slate-600"
-                              >
-                                <X size={18} />
-                              </button>
+                                onFocus={() => setShowSearchResults(true)}
+                                className="w-full pl-3 pr-4 py-4 bg-transparent text-sm font-semibold outline-none placeholder:text-slate-400 focus-within:placeholder:text-slate-400"
+                              />
+                              {searchQuery && (
+                                <button 
+                                  onClick={() => {
+                                    setSearchQuery('');
+                                    setShowSearchResults(false);
+                                  }}
+                                  className="pr-4 text-slate-400 hover:text-slate-600"
+                                >
+                                  <X size={18} />
+                                </button>
+                              )}
+                            </div>
+
+                            {/* Popover Hasil Pencarian */}
+                            {showSearchResults && searchQuery.trim() !== '' && (
+                              <div className="absolute left-0 right-0 mt-2 bg-white rounded-2xl border border-slate-100 shadow-2xl z-50 max-h-[280px] overflow-y-auto divide-y divide-slate-50 animate-in fade-in slide-in-from-top-2 duration-200 text-slate-800">
+                                <div className="px-4 py-2 bg-slate-50 text-[10px] font-bold text-slate-400 uppercase tracking-widest flex justify-between items-center">
+                                  <span>Hasil Pencarian</span>
+                                  <span>{searchedContents.length} Ditemukan</span>
+                                </div>
+                                {searchedContents.length > 0 ? (
+                                  searchedContents.map(c => (
+                                    <a 
+                                      key={c.id} 
+                                      href={c.url} 
+                                      target="_blank" 
+                                      rel="noopener noreferrer"
+                                      className="px-4 py-3 flex items-center justify-between hover:bg-blue-50/50 transition-colors group"
+                                    >
+                                      <div className="flex items-center gap-3">
+                                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${getMediaTypeStyle(c.type)}`}>
+                                          {getMediaTypeIcon(c.type)}
+                                        </div>
+                                        <div className="text-left">
+                                          <p className="font-extrabold text-slate-800 text-xs leading-snug group-hover:text-blue-600 transition-colors">{c.title}</p>
+                                          <p className="text-[10px] text-slate-400 leading-tight mt-0.5">
+                                            {subjects.find(s => String(s.id) === String(c.subjectId))?.name} • {c.grade}
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <div className="flex items-center gap-1.5 text-slate-400 group-hover:text-blue-500 shrink-0 pl-2">
+                                        <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Buka</span>
+                                        <ChevronRight size={14} />
+                                      </div>
+                                    </a>
+                                  ))
+                                ) : (
+                                  <div className="px-4 py-6 text-center text-slate-400">
+                                    <Info size={18} className="mx-auto mb-2 text-slate-300" />
+                                    <p className="text-xs font-semibold">Materi tidak ditemukan. Coba kata kunci lain.</p>
+                                  </div>
+                                )}
+                              </div>
                             )}
                           </div>
 
-                          {/* Popover Hasil Pencarian */}
-                          {showSearchResults && searchQuery.trim() !== '' && (
-                            <div className="absolute left-0 right-0 mt-2 bg-white rounded-2xl border border-slate-100 shadow-2xl z-50 max-h-[280px] overflow-y-auto divide-y divide-slate-50 animate-in fade-in slide-in-from-top-2 duration-200 text-slate-800">
-                              <div className="px-4 py-2 bg-slate-50 text-[10px] font-bold text-slate-400 uppercase tracking-widest flex justify-between items-center">
-                                <span>Hasil Pencarian</span>
-                                <span>{searchedContents.length} Ditemukan</span>
-                              </div>
-                              {searchedContents.length > 0 ? (
-                                searchedContents.map(c => (
-                                  <a 
-                                    key={c.id} 
-                                    href={c.url} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    className="px-4 py-3 flex items-center justify-between hover:bg-blue-50/50 transition-colors group"
-                                  >
-                                    <div className="flex items-center gap-3">
-                                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${getMediaTypeStyle(c.type)}`}>
-                                        {getMediaTypeIcon(c.type)}
-                                      </div>
-                                      <div className="text-left">
-                                        <p className="font-extrabold text-slate-800 text-xs leading-snug group-hover:text-blue-600 transition-colors">{c.title}</p>
-                                        <p className="text-[10px] text-slate-400 leading-tight mt-0.5">
-                                          {subjects.find(s => String(s.id) === String(c.subjectId))?.name} • {c.grade}
-                                        </p>
-                                      </div>
-                                    </div>
-                                    <div className="flex items-center gap-1.5 text-slate-400 group-hover:text-blue-500 shrink-0 pl-2">
-                                      <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Buka</span>
-                                      <ChevronRight size={14} />
-                                    </div>
-                                  </a>
-                                ))
-                              ) : (
-                                <div className="px-4 py-6 text-center text-slate-400">
-                                  <Info size={18} className="mx-auto mb-2 text-slate-300" />
-                                  <p className="text-xs font-semibold">Materi tidak ditemukan. Coba kata kunci lain.</p>
-                                </div>
-                              )}
-                            </div>
-                          )}
-                        </div>
+                          {/* --- STATISTIK --- */}
+                          <div className="flex flex-wrap gap-8 py-2">
+                             <div>
+                                <p className="text-3xl font-black text-white">{contents.length}</p>
+                                <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest mt-1">Total Materi</p>
+                             </div>
+                             <div>
+                                <p className="text-3xl font-black text-white">{contributors.length}</p>
+                                <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest mt-1">Kontributor</p>
+                             </div>
+                             <div>
+                                <p className="text-3xl font-black text-white">{testimonials.length}</p>
+                                <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest mt-1">Testimoni</p>
+                             </div>
+                          </div>
 
-                        {/* --- STATISTIK --- */}
-                        <div className="flex flex-wrap gap-8 py-2">
-                           <div>
-                              <p className="text-3xl font-black text-white">{contents.length}</p>
-                              <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest mt-1">Total Materi</p>
-                           </div>
-                           <div>
-                              <p className="text-3xl font-black text-white">{contributors.length}</p>
-                              <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest mt-1">Kontributor</p>
-                           </div>
-                           <div>
-                              <p className="text-3xl font-black text-white">{testimonials.length}</p>
-                              <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest mt-1">Testimoni</p>
-                           </div>
-                        </div>
-
-                        <div className="flex flex-wrap gap-3 pt-2">
-                          <button onClick={() => navigateTo('subjects', '#/subjects')} className="bg-blue-600 text-white px-6 py-3 rounded-xl font-extrabold text-[11px] shadow-xl hover:bg-blue-500 transition-all active:scale-95">Mulai Eksplorasi</button>
-                        </div>
+                          <div className="flex flex-wrap gap-3 pt-2">
+                            <button onClick={() => navigateTo('subjects', '#/subjects')} className="bg-blue-600 text-white px-6 py-3 rounded-xl font-extrabold text-[11px] shadow-xl hover:bg-blue-500 transition-all active:scale-95">Mulai Eksplorasi</button>
+                          </div>
+                       </div>
+                       
+                       {/* --- GAMBAR DI SEBELAH KANAN DASHBOARD --- */}
+                       <div className="w-full lg:w-5/12 max-w-[460px] shrink-0 flex justify-center lg:justify-end">
+                          <img 
+                            src="https://imgur.com/bOSpf6Y.png" 
+                            alt="Ilustrasi Pembelajaran LENTERA42" 
+                            className="w-full h-auto object-contain rounded-2xl drop-shadow-2xl transform hover:scale-105 transition-transform duration-500 max-h-[320px] lg:max-h-[380px]"
+                            onError={(e) => {
+                              e.target.onerror = null; 
+                              e.target.style.display = 'none';
+                            }}
+                          />
+                       </div>
                      </div>
+                     
                      {/* Decorative Gradient */}
                      <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 blur-[80px] rounded-full -mr-24 -mt-24 pointer-events-none z-10"></div>
                   </header>
@@ -746,7 +763,7 @@
                               </div>
 
                               <div className="space-y-1.5">
-                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Kontributor</label>
+                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Contributor</label>
                                 <div className="relative">
                                   <select value={formContent.contributorId} onChange={e => setFormContent({...formContent, contributorId: e.target.value})} className="w-full p-3.5 bg-slate-50 border border-slate-100 rounded-xl outline-none appearance-none cursor-pointer text-sm">
                                     <option value="">-- Anonim / Tidak Ada --</option>
@@ -994,7 +1011,7 @@
                                   </div>
                                   <div className="flex md:flex-col justify-end gap-1 md:border-l border-slate-50 pt-4 md:pt-0 md:pl-4">
                                      <button onClick={() => handleEditTestimoni(t)} className="flex items-center justify-center gap-2 p-2 rounded-xl text-slate-400 hover:bg-slate-50 hover:text-blue-600 font-bold text-[10px] transition-all"><Edit size={14}/></button>
-                                     <button onClick={() => handleDeleteTestimoni(t.id)} className="flex items-center justify-center gap-2 p-2 rounded-xl text-slate-400 hover:bg-red-50 hover:text-red-500 font-bold text-[10px] transition-all"><Trash2 size={14}/></button>
+                                     <button onClick={() => handleDeleteTestimoni(t.id)} className="p-2 text-slate-300 hover:bg-red-50 hover:text-red-500 rounded-lg transition-all"><Trash2 size={14}/></button>
                                   </div>
                                </div>
                              ))}
@@ -1006,7 +1023,6 @@
                 </div>
               )}
 
-              {/* VIEW: SUBJECTS (TANPA PAGINASI - SEMUA MAPEL TERLIHAT) */}
               {view === 'subjects' && (
                 <div className="max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
                   <div className="mb-10">
@@ -1043,93 +1059,93 @@
                 </div>
               )}
 
-              {/* VIEW: LEADERBOARD */}
+              {/* VIEW: LEADERBOARD (VERSI LEBIH KECIL & COMPACT) */}
               {view === 'leaderboard' && (
-                <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                  <div className="text-center space-y-4">
-                    <div className="inline-flex p-3 bg-blue-50 text-blue-600 rounded-2xl border border-blue-100">
-                      <Trophy size={24} />
+                <div className="max-w-3xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  <div className="text-center space-y-2">
+                    <div className="inline-flex p-2 bg-blue-50 text-blue-600 rounded-xl border border-blue-100">
+                      <Trophy size={20} />
                     </div>
-                    <h2 className="text-4xl font-serif text-slate-900">Leaderboard</h2>
-                    <p className="text-slate-500 font-medium text-xs max-w-sm mx-auto">Apresiasi khusus bagi para Kontributor yang telah membantu mencerdaskan kehidupan bangsa melalui konten berkualitas di LENTERA42.</p>
+                    <h2 className="text-2xl font-serif text-slate-900">Kontributor</h2>
+                    <p className="text-slate-500 font-medium text-xs max-w-sm mx-auto">Apresiasi bagi para Kontributor LENTERA42 melalui konten pembelajaran berkualitas.</p>
                   </div>
 
-                  {/* Podium Visual */}
-                  <div className="flex flex-col md:flex-row items-end justify-center gap-4 md:gap-2 mb-10 px-4">
-                    {/* Rank 2 */}
+                  {/* Podium Visual Compact */}
+                  <div className="flex flex-col md:flex-row items-end justify-center gap-3 px-4 mb-4">
+                    {/* Rank 2 (Kiri) */}
                     <div className="order-2 md:order-1 flex flex-col items-center w-full md:w-1/3">
-                      <div className="relative mb-4">
-                        <div className="w-20 h-20 bg-slate-200 rounded-3xl flex items-center justify-center text-slate-500 border-4 border-white shadow-xl overflow-hidden">
-                          <span className="text-2xl font-black">{podium[1]?.name?.charAt(0)}</span>
+                      <div className="relative mb-2">
+                        <div className="w-14 h-14 bg-slate-200 rounded-2xl flex items-center justify-center text-slate-500 border-2 border-white shadow-md overflow-hidden">
+                          <span className="text-lg font-black">{podium[1]?.name?.charAt(0)}</span>
                         </div>
-                        <div className="absolute -top-2 -right-2 bg-slate-400 text-white w-8 h-8 rounded-full border-4 border-white flex items-center justify-center text-xs font-bold shadow-lg">2</div>
+                        <div className="absolute -top-1.5 -right-1.5 bg-slate-400 text-white w-6 h-6 rounded-full border-2 border-white flex items-center justify-center text-[10px] font-bold shadow">2</div>
                       </div>
-                      <div className="w-full bg-white p-6 rounded-t-3xl border border-slate-100 shadow-sm text-center min-h-[140px] flex flex-col justify-center">
-                        <h4 className="font-extrabold text-slate-900 text-sm mb-1">{podium[1]?.name}</h4>
-                        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-3">{podium[1]?.role}</p>
-                        <div className="bg-slate-50 py-2 px-4 rounded-xl inline-block mx-auto">
-                          <span className="text-sm font-black text-slate-700">{podium[1]?.points?.toLocaleString() || 0} Poin</span>
+                      <div className="w-full bg-white p-4 rounded-t-2xl border border-slate-100 shadow-sm text-center min-h-[100px] flex flex-col justify-center">
+                        <h4 className="font-extrabold text-slate-900 text-xs truncate">{podium[1]?.name}</h4>
+                        <p className="text-[8px] font-bold text-slate-400 uppercase tracking-wider mb-2">{podium[1]?.role || 'Kontributor'}</p>
+                        <div className="bg-slate-50 py-1 px-3 rounded-lg inline-block mx-auto">
+                          <span className="text-xs font-black text-slate-700">{podium[1]?.points || 0} Poin</span>
                         </div>
                       </div>
-                      <div className="w-full h-16 bg-slate-200 rounded-b-xl opacity-50 hidden md:block"></div>
+                      <div className="w-full h-8 bg-slate-200 rounded-b-lg opacity-50 hidden md:block"></div>
                     </div>
 
-                    {/* Rank 1 */}
-                    <div className="order-1 md:order-2 flex flex-col items-center w-full md:w-1/3 scale-110 z-10">
-                      <div className="relative mb-4">
-                        <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-blue-500 animate-bounce">
-                          <Crown size={32} fill="currentColor" />
+                    {/* Rank 1 (Tengah - Sedikit Lebih Tinggi) */}
+                    <div className="order-1 md:order-2 flex flex-col items-center w-full md:w-1/3 scale-105 z-10">
+                      <div className="relative mb-2">
+                        <div className="absolute -top-5 left-1/2 -translate-x-1/2 text-blue-500 animate-bounce">
+                          <Crown size={22} fill="currentColor" />
                         </div>
-                        <div className="w-24 h-24 bg-gradient-to-tr from-blue-500 to-indigo-600 rounded-[2rem] flex items-center justify-center text-white border-4 border-white shadow-2xl overflow-hidden">
-                          <span className="text-3xl font-black">{podium[0]?.name?.charAt(0)}</span>
+                        <div className="w-18 h-18 bg-gradient-to-tr from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white border-2 border-white shadow-lg overflow-hidden">
+                          <span className="text-2xl font-black">{podium[0]?.name?.charAt(0)}</span>
                         </div>
-                        <div className="absolute top-0 -right-2 bg-blue-500 text-white w-9 h-9 rounded-full border-4 border-white flex items-center justify-center text-xs font-bold shadow-lg">1</div>
+                        <div className="absolute -top-1.5 -right-1.5 bg-blue-500 text-white w-7 h-7 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold shadow">1</div>
                       </div>
-                      <div className="w-full bg-white p-8 rounded-t-3xl border-x border-t border-blue-100 shadow-xl text-center min-h-[160px] flex flex-col justify-center">
-                        <h4 className="font-extrabold text-slate-900 text-base mb-1">{podium[0]?.name}</h4>
-                        <p className="text-[9px] font-bold text-blue-600 uppercase tracking-widest mb-4">{podium[0]?.role}</p>
-                        <div className="bg-blue-500 text-white py-2.5 px-5 rounded-xl inline-block mx-auto">
-                          <span className="text-base font-black">{podium[0]?.points?.toLocaleString() || 0} Poin</span>
+                      <div className="w-full bg-white p-5 rounded-t-2xl border-x border-t border-blue-100 shadow-md text-center min-h-[110px] flex flex-col justify-center">
+                        <h4 className="font-extrabold text-slate-900 text-sm truncate">{podium[0]?.name}</h4>
+                        <p className="text-[8px] font-bold text-blue-600 uppercase tracking-wider mb-2">{podium[0]?.role || 'Kontributor'}</p>
+                        <div className="bg-blue-500 text-white py-1 px-3 rounded-lg inline-block mx-auto">
+                          <span className="text-xs font-black">{podium[0]?.points || 0} Poin</span>
                         </div>
                       </div>
-                      <div className="w-full h-24 bg-blue-500 rounded-b-2xl shadow-xl hidden md:block"></div>
+                      <div className="w-full h-12 bg-blue-500 rounded-b-xl shadow hidden md:block"></div>
                     </div>
 
-                    {/* Rank 3 */}
+                    {/* Rank 3 (Kanan) */}
                     <div className="order-3 flex flex-col items-center w-full md:w-1/3">
-                      <div className="relative mb-4">
-                        <div className="w-20 h-20 bg-orange-100 rounded-3xl flex items-center justify-center text-orange-600 border-4 border-white shadow-xl overflow-hidden">
-                          <span className="text-2xl font-black">{podium[2]?.name?.charAt(0)}</span>
+                      <div className="relative mb-2">
+                        <div className="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center text-orange-600 border-2 border-white shadow-md overflow-hidden">
+                          <span className="text-lg font-black">{podium[2]?.name?.charAt(0)}</span>
                         </div>
-                        <div className="absolute -top-2 -right-2 bg-orange-400 text-white w-8 h-8 rounded-full border-4 border-white flex items-center justify-center text-xs font-bold shadow-lg">3</div>
+                        <div className="absolute -top-1.5 -right-1.5 bg-orange-400 text-white w-6 h-6 rounded-full border-2 border-white flex items-center justify-center text-[10px] font-bold shadow">3</div>
                       </div>
-                      <div className="w-full bg-white p-6 rounded-t-3xl border border-slate-100 shadow-sm text-center min-h-[140px] flex flex-col justify-center">
-                        <h4 className="font-extrabold text-slate-900 text-sm mb-1">{podium[2]?.name}</h4>
-                        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-3">{podium[2]?.role}</p>
-                        <div className="bg-orange-50 py-2 px-4 rounded-xl inline-block mx-auto">
-                          <span className="text-sm font-black text-orange-700">{podium[2]?.points?.toLocaleString() || 0} Poin</span>
+                      <div className="w-full bg-white p-4 rounded-t-2xl border border-slate-100 shadow-sm text-center min-h-[100px] flex flex-col justify-center">
+                        <h4 className="font-extrabold text-slate-900 text-xs truncate">{podium[2]?.name}</h4>
+                        <p className="text-[8px] font-bold text-slate-400 uppercase tracking-wider mb-2">{podium[2]?.role || 'Kontributor'}</p>
+                        <div className="bg-orange-50 py-1 px-3 rounded-lg inline-block mx-auto">
+                          <span className="text-xs font-black text-orange-700">{podium[2]?.points || 0} Poin</span>
                         </div>
                       </div>
-                      <div className="w-full h-12 bg-orange-200 rounded-b-xl opacity-50 hidden md:block"></div>
+                      <div className="w-full h-6 bg-orange-200 rounded-b-lg opacity-50 hidden md:block"></div>
                     </div>
                   </div>
 
-                  {/* List Others */}
+                  {/* List Others Compact */}
                   {otherContributors.length > 0 ? (
-                    <div className="space-y-3 px-4">
-                      <h3 className="text-[10px] font-extrabold text-slate-400 uppercase tracking-[0.2em] mb-4">Peringkat Lainnya</h3>
+                    <div className="space-y-2 px-4 max-w-2xl mx-auto">
+                      <h3 className="text-[9px] font-extrabold text-slate-400 uppercase tracking-[0.2em] mb-2">Peringkat Lainnya</h3>
                       {otherContributors.map((p, index) => (
-                        <div key={p.id} className="bg-white p-4 rounded-2xl border border-slate-100 flex items-center justify-between hover:bg-slate-50 transition-all group">
-                           <div className="flex items-center gap-4">
-                             <span className="w-6 text-xs font-bold text-slate-300">{index + 4}</span>
-                             <div className="w-10 h-10 bg-slate-100 text-slate-400 rounded-xl flex items-center justify-center font-bold text-sm">{p.name.charAt(0)}</div>
+                        <div key={p.id} className="bg-white p-3 rounded-xl border border-slate-100 flex items-center justify-between hover:bg-slate-50 transition-all group shadow-sm">
+                           <div className="flex items-center gap-3">
+                             <span className="w-5 text-xs font-bold text-slate-300">#{index + 4}</span>
+                             <div className="w-8 h-8 bg-slate-100 text-slate-400 rounded-lg flex items-center justify-center font-bold text-xs shrink-0">{p.name.charAt(0)}</div>
                              <div>
-                               <h5 className="font-bold text-slate-900 text-sm leading-none mb-1">{p.name}</h5>
-                               <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">{p.role}</p>
+                               <h5 className="font-bold text-slate-900 text-xs leading-none mb-1">{p.name}</h5>
+                               <p className="text-[8px] font-bold text-slate-400 uppercase tracking-wider">{p.role || 'Kontributor'}</p>
                              </div>
                            </div>
                            <div className="text-right">
-                             <span className="text-sm font-black text-slate-700">{p.points.toLocaleString()} Poin</span>
+                             <span className="text-xs font-black text-slate-700">{p.points.toLocaleString()} Poin</span>
                            </div>
                         </div>
                       ))}
@@ -1272,8 +1288,8 @@
                               <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 bg-slate-900 text-blue-400 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 shadow">
                                   {contributors.find(u => String(u.id) === String(content.contributorId))?.name.charAt(0) || 'A'}
-                                </div>
-                                <div className="min-w-0">
+                               </div>
+                               <div className="min-w-0">
                                   <p className="text-[10px] font-bold text-slate-400 uppercase leading-none mb-1">Oleh Kontributor</p>
                                   <p className="text-xs font-bold text-slate-700 truncate">
                                     {contributors.find(u => String(u.id) === String(content.contributorId))?.name || 'Anonim'}
