@@ -582,8 +582,19 @@
           </nav>
 
           {/* Main Content Area */}
-          <main className="flex-1 p-6 md:p-8 lg:p-12 flex flex-col justify-between min-h-screen md:ml-64">
+          <main className="flex-1 p-6 md:p-8 lg:p-12 flex flex-col justify-between min-h-screen md:ml-64 relative">
             
+            {/* --- FITUR FULL SCREEN DI POJOK KANAN ATAS (Hanya Simbol Saja) --- */}
+            <div className="absolute top-6 right-6 md:top-8 md:right-8 lg:top-12 lg:right-12 z-40">
+              <button 
+                onClick={toggleFullscreen}
+                className="flex items-center justify-center w-10 h-10 bg-white hover:bg-slate-50 border border-slate-100 rounded-xl text-slate-600 hover:text-blue-600 shadow-sm transition-all active:scale-95"
+                title={isFullscreen ? "Keluar Layar Penuh" : "Layar Penuh"}
+              >
+                {isFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+              </button>
+            </div>
+
             <div className="space-y-8 flex-1">
               {/* VIEW: HOME */}
               {view === 'home' && (
@@ -1374,6 +1385,14 @@
             <footer className="mt-16 -mx-6 md:-mx-8 lg:-mx-12 -mb-6 md:-mb-8 lg:-mb-12 py-8 bg-slate-900 border-t border-slate-800 text-center text-xs text-slate-400 font-medium">
               <p>© 2026 Noviyalpg Creative. Semua Hak Cipta Dilindungi.</p>
             </footer>
+
+            {/* Toast Notifikasi Fullscreen Diblokir */}
+            {showFsError && (
+              <div className="fixed bottom-6 right-6 bg-red-500 text-white px-4 py-3 rounded-xl shadow-lg z-50 flex items-center gap-2 animate-bounce">
+                <Info size={16} />
+                <span className="text-xs font-bold">Fullscreen diblokir oleh browser atau iframe Anda!</span>
+              </div>
+            )}
 
             {/* Modal Tambah Testimoni Publik */}
             {showPublicTestimoniModal && (
