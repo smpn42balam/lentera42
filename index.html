@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>LENTERA42 Premium Platform</title>
+  <title>LENTERA42 Platform Digital</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -46,6 +46,15 @@
     }
     ::-webkit-scrollbar-thumb:hover { 
       background: #94a3b8; 
+    }
+    
+    /* Efek Mengambang Lambat untuk Estetika Gambar */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
     }
   </style>
 </head>
@@ -318,7 +327,7 @@
         }
 
         const isNew = !formTestimoni.id;
-        const payload = { ...formTestimoni, id: 't' + Date.now() };
+        const payload = { ...formTestimoni, id: isNew ? 't' + Date.now() : formTestimoni.id };
 
         if (isNew) {
           setTestimonials([payload, ...testimonials]);
@@ -547,7 +556,7 @@
       }
 
       return (
-        <div className="flex flex-col min-h-screen bg-[#FCFBFA] text-slate-800 text-sm leading-relaxed overflow-x-hidden">
+        <div className="flex flex-col md:flex-row min-h-screen bg-[#FCFBFA] text-slate-800 text-sm leading-relaxed overflow-x-hidden">
           {/* Sidebar */}
           <nav className="w-full md:w-64 bg-[#0F172A] p-6 flex flex-col shrink-0 z-20 text-white shadow-2xl md:fixed md:inset-y-0 md:left-0 overflow-y-auto">
             <div className="flex items-center gap-2 mb-10 cursor-pointer group" onClick={() => navigateTo('home')}>
@@ -599,12 +608,14 @@
               {/* VIEW: HOME */}
               {view === 'home' && (
                 <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in duration-500">
-                  <header className="relative py-12 px-6 sm:py-16 sm:px-12 bg-slate-900 rounded-[2.5rem] text-white overflow-visible shadow-2xl border-b-4 border-blue-500/50">
-                     {/* Flex container layout untuk teks di kiri dan gambar di kanan secara keseluruhan */}
-                     <div className="relative z-30 flex flex-col lg:flex-row items-center justify-between gap-8">
-                       <div className="space-y-6 lg:w-7/12 text-left flex flex-col justify-center">
+                  <header className="relative py-12 px-6 sm:py-16 sm:px-12 bg-[#0F172A] rounded-[2.5rem] text-white overflow-visible shadow-2xl border-b-4 border-blue-500/50">
+                     {/* Menggunakan layout Grid 12 kolom untuk penempatan estetik teks di kiri dan gambar di kanan */}
+                     <div className="relative z-30 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                       
+                       {/* Kolom Kiri: Teks deskripsi dan fungsionalitas utama (7 Kolom) */}
+                       <div className="space-y-6 lg:col-span-7 text-left flex flex-col justify-center order-2 lg:order-1">
                           <span className="inline-block bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-full text-[8px] font-extrabold uppercase tracking-[0.2em] w-max">Platform Digital</span>
-                          <h1 className="text-5xl md:text-6xl lg:text-[3.75rem] font-serif leading-[1.1]"><span className="whitespace-nowrap">Transformasi Belajar</span> <br/><span className="text-blue-400 italic font-medium">Tanpa Batas.</span></h1>
+                          <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-serif leading-[1.1]"><span className="whitespace-nowrap">Transformasi Belajar</span> <br/><span className="text-blue-400 italic font-medium">Tanpa Batas.</span></h1>
                           <p className="text-slate-400 max-w-md text-sm font-normal leading-relaxed">Akses pembelajaran digital inovatif dengan materi pilihan dan kurikulum terbaru hanya di LENTERA42 (Layanan Interaktif Materi dan Pembelajaran SMPN 42 Bandar Lampung)</p>
                           
                           {/* --- FITUR: SEARCH BAR INDAH --- */}
@@ -701,21 +712,28 @@
                           </div>
                        </div>
                        
-                       {/* --- GAMBAR DI SEBELAH KANAN DASHBOARD (Satu baris sejajar) --- */}
-                       <div className="w-full lg:w-5/12 max-w-[460px] shrink-0 flex justify-center lg:justify-end">
-                          <img 
-                            src="https://imgur.com/bOSpf6Y.png" 
-                            alt="Ilustrasi Pembelajaran LENTERA42" 
-                            className="w-full h-auto object-contain rounded-2xl drop-shadow-2xl transform hover:scale-105 transition-transform duration-500 max-h-[320px] lg:max-h-[420px]"
-                            onError={(e) => {
-                              e.target.onerror = null; 
-                              e.target.style.display = 'none';
-                            }}
-                          />
+                       {/* Kolom Kanan: Tempat Gambar yang Estetik dan Proporsional (5 Kolom) */}
+                       <div className="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2">
+                         {/* Card Frame Kaca untuk membungkus gambar secara elegan */}
+                         <div className="relative group border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl p-4 sm:p-5 rounded-[2.5rem] overflow-hidden max-w-[340px] sm:max-w-[400px] lg:max-w-[440px]">
+                           {/* Decorative background glow inside frame */}
+                           <div className="absolute -top-12 -left-12 w-28 h-28 bg-blue-500/20 blur-2xl rounded-full pointer-events-none"></div>
+                           <div className="absolute -bottom-12 -right-12 w-28 h-28 bg-indigo-500/20 blur-2xl rounded-full pointer-events-none"></div>
+
+                           <img 
+                             src="https://imgur.com/bOSpf6Y.png" 
+                             alt="Ilustrasi Pembelajaran LENTERA42" 
+                             className="w-full h-auto object-cover rounded-[2rem] transition-transform duration-700 ease-out group-hover:scale-105 animate-float"
+                             onError={(e) => {
+                               e.target.onerror = null; 
+                               e.target.parentNode.style.display = 'none';
+                             }}
+                           />
+                         </div>
                        </div>
                      </div>
                      
-                     {/* Decorative Gradient */}
+                     {/* Decorative Outer Glow */}
                      <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 blur-[80px] rounded-full -mr-24 -mt-24 pointer-events-none z-10"></div>
                   </header>
                 </div>
@@ -774,7 +792,7 @@
                               </div>
 
                               <div className="space-y-1.5">
-                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Contributor</label>
+                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Kontributor</label>
                                 <div className="relative">
                                   <select value={formContent.contributorId} onChange={e => setFormContent({...formContent, contributorId: e.target.value})} className="w-full p-3.5 bg-slate-50 border border-slate-100 rounded-xl outline-none appearance-none cursor-pointer text-sm">
                                     <option value="">-- Anonim / Tidak Ada --</option>
@@ -1084,8 +1102,8 @@
                   {/* Podium Visual Compact */}
                   <div className="flex flex-col md:flex-row items-end justify-center gap-3 px-4 mb-4">
                     {/* Rank 2 (Kiri) */}
-                    <div className="order-2 md:order-1 flex flex-col items-center w-full md:w-1/3">
-                      <div className="relative mb-2">
+                    <div className="order-2 md:order-1 flex flex-col items-center w-full md:w-1/3 animate-in slide-in-from-left duration-300">
+                      <div className="relative mb-2 animate-pulse">
                         <div className="w-14 h-14 bg-slate-200 rounded-2xl flex items-center justify-center text-slate-500 border-2 border-white shadow-md overflow-hidden">
                           <span className="text-lg font-black">{podium[1]?.name?.charAt(0)}</span>
                         </div>
@@ -1102,7 +1120,7 @@
                     </div>
 
                     {/* Rank 1 (Tengah) */}
-                    <div className="order-1 md:order-2 flex flex-col items-center w-full md:w-1/3 scale-105 z-10">
+                    <div className="order-1 md:order-2 flex flex-col items-center w-full md:w-1/3 scale-105 z-10 animate-in slide-in-from-bottom duration-500">
                       <div className="relative mb-2">
                         <div className="absolute -top-5 left-1/2 -translate-x-1/2 text-blue-500 animate-bounce">
                           <Crown size={22} fill="currentColor" />
@@ -1123,7 +1141,7 @@
                     </div>
 
                     {/* Rank 3 (Kanan) */}
-                    <div className="order-3 flex flex-col items-center w-full md:w-1/3">
+                    <div className="order-3 flex flex-col items-center w-full md:w-1/3 animate-in slide-in-from-right duration-300">
                       <div className="relative mb-2">
                         <div className="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center text-orange-600 border-2 border-white shadow-md overflow-hidden">
                           <span className="text-lg font-black">{podium[2]?.name?.charAt(0)}</span>
@@ -1165,7 +1183,6 @@
                 </div>
               )}
 
-              {/* VIEW: TESTIMONI */}
               {view === 'testimoni' && (
                 <div className="max-w-5xl mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -1299,8 +1316,8 @@
                               <div className="flex items-center gap-2">
                                 <div className="w-6 h-6 bg-slate-900 text-blue-400 rounded-lg flex items-center justify-center font-bold text-[10px] shrink-0 shadow">
                                   {contributors.find(u => String(u.id) === String(content.contributorId))?.name.charAt(0) || 'A'}
-                               </div>
-                               <div className="min-w-0">
+                                </div>
+                                <div className="min-w-0">
                                   <p className="text-[8px] font-bold text-slate-400 uppercase leading-none mb-0.5">Oleh Kontributor</p>
                                   <p className="text-[11px] font-bold text-slate-700 truncate">
                                     {contributors.find(u => String(u.id) === String(content.contributorId))?.name || 'Anonim'}
@@ -1339,7 +1356,6 @@
                               <option value={6}>6</option>
                               <option value={12}>12</option>
                               <option value={24}>24</option>
-                              <option value={48}>48</option>
                             </select>
                             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Karya</span>
                           </div>
@@ -1386,14 +1402,6 @@
               <p>© 2026 Noviyalpg Creative. Semua Hak Cipta Dilindungi.</p>
             </footer>
 
-            {/* Toast Notifikasi Fullscreen Diblokir */}
-            {showFsError && (
-              <div className="fixed bottom-6 right-6 bg-red-500 text-white px-4 py-3 rounded-xl shadow-lg z-50 flex items-center gap-2 animate-bounce">
-                <Info size={16} />
-                <span className="text-xs font-bold">Fullscreen diblokir oleh browser atau iframe Anda!</span>
-              </div>
-            )}
-
             {/* Modal Tambah Testimoni Publik */}
             {showPublicTestimoniModal && (
               <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
@@ -1425,7 +1433,7 @@
                               <textarea required rows="4" value={publicTestimoni.text} onChange={e => setPublicTestimoni({...publicTestimoni, text: e.target.value})} className="w-full p-3.5 bg-slate-50 border border-slate-100 rounded-xl focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-medium text-sm resize-none" placeholder="Tuliskan pengalaman belajar Anda di sini..."></textarea>
                           </div>
                           <div className="pt-2 shrink-0">
-                            <button type="submit" className="w-full bg-slate-900 text-blue-400 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl">Kirim Testimoni</button>
+                            <button type="submit" className="w-full bg-slate-900 text-amber-400 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl">Kirim Testimoni</button>
                           </div>
                       </form>
                   </div>
@@ -1460,7 +1468,7 @@
                                 </p>
                               )}
                           </div>
-                          <button type="submit" className="w-full py-3.5 bg-slate-900 text-blue-400 font-extrabold rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98]">
+                          <button type="submit" className="w-full py-3.5 bg-slate-900 text-amber-400 font-extrabold rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98]">
                             Masuk Panel Admin
                           </button>
                       </form>
