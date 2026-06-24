@@ -14,6 +14,7 @@
     "imports": {
       "react": "https://esm.sh/react@18.2.0?dev",
       "react-dom/client": "https://esm.sh/react-dom@18.2.0/client?dev",
+      "react/jsx-runtime": "https://esm.sh/react@18.2.0/jsx-runtime?dev",
       "lucide-react": "https://esm.sh/lucide-react@0.292.0"
     }
   }
@@ -1316,8 +1317,8 @@
                               <div className="flex items-center gap-2">
                                 <div className="w-6 h-6 bg-slate-900 text-blue-400 rounded-lg flex items-center justify-center font-bold text-[10px] shrink-0 shadow">
                                   {contributors.find(u => String(u.id) === String(content.contributorId))?.name.charAt(0) || 'A'}
-                                </div>
-                                <div className="min-w-0">
+                               </div>
+                               <div className="min-w-0">
                                   <p className="text-[8px] font-bold text-slate-400 uppercase leading-none mb-0.5">Oleh Kontributor</p>
                                   <p className="text-[11px] font-bold text-slate-700 truncate">
                                     {contributors.find(u => String(u.id) === String(content.contributorId))?.name || 'Anonim'}
@@ -1364,7 +1365,7 @@
                             <button 
                               onClick={() => setContentCurrentPage(prev => Math.max(prev - 1, 1))}
                               disabled={contentCurrentPage === 1}
-                              className="p-2 rounded-lg bg-white border border-slate-200 text-slate-500 hover:bg-blue-50 hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+                              className="p-2 rounded-lg bg-white border border-slate-200 text-slate-500 hover:bg-blue-50 hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm animate-none"
                             >
                               <ChevronLeft size={16} />
                             </button>
@@ -1384,7 +1385,7 @@
                             <button 
                               onClick={() => setContentCurrentPage(prev => Math.min(prev + 1, totalContentPages))}
                               disabled={contentCurrentPage === totalContentPages}
-                              className="p-2 rounded-lg bg-white border border-slate-200 text-slate-500 hover:bg-blue-50 hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+                              className="p-2 rounded-lg bg-white border border-slate-200 text-slate-500 hover:bg-blue-50 hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm animate-none"
                             >
                               <ChevronRight size={16} />
                             </button>
@@ -1433,7 +1434,7 @@
                               <textarea required rows="4" value={publicTestimoni.text} onChange={e => setPublicTestimoni({...publicTestimoni, text: e.target.value})} className="w-full p-3.5 bg-slate-50 border border-slate-100 rounded-xl focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-medium text-sm resize-none" placeholder="Tuliskan pengalaman belajar Anda di sini..."></textarea>
                           </div>
                           <div className="pt-2 shrink-0">
-                            <button type="submit" className="w-full bg-slate-900 text-amber-400 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl">Kirim Testimoni</button>
+                            <button type="submit" className="w-full bg-slate-900 text-blue-400 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl">Kirim Testimoni</button>
                           </div>
                       </form>
                   </div>
